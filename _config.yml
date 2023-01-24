@@ -1,0 +1,65 @@
+# Site
+name: The Coders
+title: The Coders
+description: Bilginin Işığında..
+logo: 'assets/images/logo.png'
+favicon: 'assets/images/favicon.png'
+# baseurl: /mediumish-theme-jekyll
+# google_analytics: UA-108858652-1
+disqus: 'okanuzun'
+# mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
+include: ["_pages"]
+permalink: /:title/
+
+# Authors
+authors:
+  okan:
+    name: Okan Uzun
+    display_name: Okan Uzun
+    gravatar: 859db8b381781ab11083a90161427970
+    email: okan.uzun@outlook.com
+    web: https://www.okanuzun.com/
+    twitter: okanuznn
+    github: OkanUzun
+    linkedin: okan-uzun
+    description: "Administrator of The Coders, J2EE, Spring Developer | Functional Programming Enthusiast"
+
+# Plugins
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-archives
+    
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+  layout: archive
+  permalinks:
+    category: '/category/:name/'
+    
+# Pagination 
+paginate: 6
+paginate_path: /page:num/
+    
+# Other
+markdown: kramdown
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+
+# Adsense (change to "enabled" to activate, also your client id and ad slot. Create a new ad unit from your Adsense account to get the slot.)
+adsense: "disabled"
+adsense-data-ad-client: "ca-pub-7628384431107030"
+adsense-data-ad-slot: "7821501382"
+
+# Lazy Images ("enabled" or "disabled")
+lazyimages: "enabled"
+
+exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock]
