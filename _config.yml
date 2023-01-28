@@ -5,7 +5,7 @@ description: Bilginin Işığında..
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.png'
 # baseurl: /mediumish-theme-jekyll
-google_analytics: UA-108858652-1
+google_analytics: G-WRVZ05FGJL
 disqus: 'okanuzun'
 # mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
 include: ["_pages"]
