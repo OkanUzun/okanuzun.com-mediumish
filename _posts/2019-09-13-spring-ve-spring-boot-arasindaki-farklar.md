@@ -28,7 +28,7 @@ Spring; bir web uygulaması geliştirmek için en yaygın olarak kullanılan Jav
 
 Diğer kütüphanelerin aksine Spring uygulamanın birkaç alanına odaklanır ve kapsamda birçok özellik sunar.
 
-Bilindiği üzere Spring kütüphanesinin en önemli özelliği **Dependency Injection** dır.&nbsp; Dependency Injection hakkındaki yazım için [tıklayınız](https://okanuzun.com/dependency-injection-nedir/).
+Bilindiği üzere Spring kütüphanesinin en önemli özelliği **Dependency Injection** dır.&nbsp; Dependency Injection hakkındaki yazım için [tıklayınız](https://okanuzun.pages.dev/dependency-injection-nedir/).
 
 ## Spring Boot
 
