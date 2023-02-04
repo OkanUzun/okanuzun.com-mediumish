@@ -6,6 +6,7 @@ date: 2019-09-13 13:08:05.000000000 +03:00
 type: post
 published: true
 status: publish
+image: assets/images/spring-vs-spring-boot.png
 categories:
 - Genel
 - Spring

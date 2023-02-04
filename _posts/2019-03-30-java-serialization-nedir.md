@@ -6,6 +6,7 @@ date: 2019-03-30 14:24:00.000000000 +03:00
 type: post
 published: true
 status: publish
+image: assets/images/java-serialization.png
 categories:
 - Java
 tags:

@@ -6,6 +6,7 @@ date: 2019-03-03 13:53:22.000000000 +03:00
 type: post
 published: true
 status: publish
+image: assets/images/rest-api.png
 categories:
 - Genel
 tags:

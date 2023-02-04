@@ -6,6 +6,7 @@ date: 2021-10-29 16:00:00.000000000 +03:00
 type: post
 featured: true
 status: publish
+image: assets/images/think-safety-first.png
 categories:
 - Genel 
 - Java
