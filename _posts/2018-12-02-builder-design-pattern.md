@@ -6,6 +6,7 @@ date: 2018-12-02 11:58:49.000000000 +03:00
 type: post
 published: true
 status: publish
+image: assets/images/builder-design-pattern.png
 categories:
 - Java
 - Tasarım Desenleri
@@ -19,12 +20,6 @@ tags:
 - design pattern
 - java design pattern
 description: Bazen projelerimizde nesnelerimize ait birçok özellik olabilir ve bu nesnelerimizi farklı farklı özellikler ile oluşturmak isteriz. Builder design pattern
-author:
-  login: okanuzun
-  email: okan.uzun@outlook.com
-  display_name: Okan
-  first_name: Okan
-  last_name: Uzun
 permalink: "/builder-design-pattern/"
 ---
 Merhaba arkadaşlar. Bu yazımda oldukça popüler ve işlevi büyük olan **Builder** tasarım deseninden bahsetmek istiyorum.

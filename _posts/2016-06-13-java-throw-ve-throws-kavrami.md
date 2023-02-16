@@ -6,6 +6,7 @@ date: 2016-06-13 15:03:59.000000000 +03:00
 type: post
 published: true
 status: publish
+image: assets/images/throw-and-throws.jpeg
 categories:
 - Java
 tags:

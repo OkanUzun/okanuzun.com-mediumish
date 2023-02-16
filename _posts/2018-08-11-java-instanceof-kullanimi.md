@@ -6,6 +6,7 @@ date: 2018-08-11 12:25:45.000000000 +03:00
 type: post
 published: true
 status: publish
+image: assets/images/java-instanceof.jpeg
 categories:
 - Java
 tags:
@@ -23,8 +24,45 @@ Java instanceof operatörü herhangi bir nesnenin belirtilen türe ait olup, olm
 
 Şimdi basit bir örnek yapalım.
 
-<script src="https://gist.github.com/OkanUzun/aea5cffbf2d374b30ac7860309d4f1ad.js"></script>
+```java
+import java.io.Serializable;
 
+public class Car implements Serializable {
+
+  private String brand;
+
+  private String model;
+
+  Car(final String brand, final String model) {
+    this.brand = brand;
+    this.model = model;
+  }
+
+  public String getBrand() {
+    return brand;
+  }
+
+  public void setBrand(final String brand) {
+    this.brand = brand;
+  }
+
+  public String getModel() {
+    return model;
+  }
+
+  public void setModel(final String model) {
+    this.model = model;
+  }
+}
+
+public class MainClass {
+
+  public static void main(String[] args) {
+    Car car = new Car();
+    System.out.println(car instanceof Car);
+  }
+}
+```
 ```
 Output : true
 ```
@@ -35,16 +73,34 @@ Alt sınıf nesnesinin türü de aynı zamanda bağlı olduğu üst sınıfını
 
 Şimdi bunla ilgili bir örnek yapalım.
 
-<script src="https://gist.github.com/OkanUzun/513a4071cd9753ed8159d37b36e957ef.js"></script>
+```java
+public class Opel extends Car {
 
+}
+
+public class MainClass {
+
+  public static void main(String[] args) {
+    final Opel opel = new Opel();
+    System.out.println(opel instanceof Car);
+  }
+}
+```
 ```
 Output : true
 ```
 
 Yazının başında da bahsettiğim gibi instanceof operatörünü null bir değişkene uygularsak sonuç olarak bize false döner.
 
-<script src="https://gist.github.com/OkanUzun/cf4c998f0158565c88ca64daab4e70e2.js"></script>
+```java
+public class MainClass {
 
+  public static void main(String[] args) {
+    final Opel opel = null;
+    System.out.println(opel instanceof Opel);
+  }
+}
+```
 ```
 Output : false
 ```

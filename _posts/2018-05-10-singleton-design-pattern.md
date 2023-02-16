@@ -6,6 +6,7 @@ date: 2018-05-10 14:53:22.000000000 +03:00
 type: post
 published: true
 status: publish
+image: assets/images/singleton-design-pattern.png
 categories:
 - Java
 - Tasarım Desenleri

@@ -6,6 +6,7 @@ date: 2019-01-26 20:21:23.000000000 +03:00
 type: post
 published: true
 status: publish
+image: assets/images/java-optional.jpeg
 categories:
 - Java
 tags:

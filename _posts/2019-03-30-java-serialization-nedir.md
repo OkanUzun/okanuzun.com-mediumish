@@ -31,22 +31,92 @@ Araba bilgilerini tutan Car diye bir sınıfımız olsun ve bu bilgileri bir dos
 Serileştirme işlemi için **Serializable** arayüzünü implement etmek gerekiyor.
 
 Araba sınıfımız  
-<script src="https://gist.github.com/OkanUzun/aea5cffbf2d374b30ac7860309d4f1ad.js"></script>
+```java
+import java.io.Serializable;
+
+public class Car implements Serializable {
+
+  private String brand;
+
+  private String model;
+
+  Car(final String brand, final String model) {
+    this.brand = brand;
+    this.model = model;
+  }
+
+  public String getBrand() {
+    return brand;
+  }
+
+  public void setBrand(final String brand) {
+    this.brand = brand;
+  }
+
+  public String getModel() {
+    return model;
+  }
+
+  public void setModel(final String model) {
+    this.model = model;
+  }
+}
+```
 
 Nesnemizi dosyaya yazdırdığımız test sınıfımız  
-<script src="https://gist.github.com/OkanUzun/6eafaf21285606e56285dbac337ebed4.js"></script>
+```java
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
+public class Main {
+
+  public static void main(String[] args) {
+    write();
+  }
+
+  private static void write() {
+    try {
+      Car car = new Car("Seat", "Leon");
+      FileOutputStream file = new FileOutputStream("/Users/okan/Documents/car.txt");
+      ObjectOutputStream write = new ObjectOutputStream(file);
+      write.writeObject(car);
+      write.close();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+}
+```
 Nesnemizi dosyaya yazdığımız zaman dosyamızın çıktısı şu şekilde.
-
 ```
 ¨ÌsrCarÇ«5xÕçLbrandtLjava/lang/String;Lmodelq~xptSeattLeon
 ```
 
 Şimdi gelin bu nesneyi dosyadan tekrar okuyalım.  
-<script src="https://gist.github.com/OkanUzun/2f3dac9a7385fe345b532d6a406ccd54.js"></script>
+```java
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 
-Çıktımız :
+public class Main {
 
+  public static void main(String[] args) {
+    read();
+  }
+
+  private static void read() {
+    try {
+      FileInputStream file = new FileInputStream("/Users/okan/Documents/car.txt");
+      ObjectInputStream read = new ObjectInputStream(file);
+      Car car = (Car) read.readObject();
+      System.out.println(car.toString());
+      read.close();
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+    }
+  }
+}
+```
+Çıktımız:
 ```
 Marka : Seat Model : Leon
 ```

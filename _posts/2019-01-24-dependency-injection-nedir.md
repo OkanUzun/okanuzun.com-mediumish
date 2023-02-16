@@ -6,6 +6,7 @@ date: 2019-01-24 22:29:21.000000000 +03:00
 type: post
 published: true
 status: publish
+image: assets/images/dependency-injection.jpeg
 categories:
 - Genel
 tags:

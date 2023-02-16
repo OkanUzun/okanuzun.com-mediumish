@@ -6,6 +6,7 @@ date: 2018-07-25 16:08:55.000000000 +03:00
 type: post
 published: true
 status: publish
+image: assets/images/isolation-levels.jpeg
 categories:
 - Veri Tabanı &amp; SQL
 tags:
