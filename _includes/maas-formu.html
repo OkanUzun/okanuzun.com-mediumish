@@ -1,0 +1,116 @@
+<div class="maas-form-container" style="margin-top: 20px;">
+  <form id="maasFormu">
+
+    <div id="dinamikFormAlanlari">
+      <p>Form yükleniyor...</p>
+    </div>
+
+    <button type="submit" id="submitBtn" style="padding: 10px 15px; cursor: pointer; display: none;">Analiz Et</button>
+  </form>
+
+  <div id="analizSonucu" style="margin-top: 20px; padding: 15px; border: 1px solid #ccc; display: none; border-radius: 5px;">
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const alanlarKonteyneri = document.getElementById("dinamikFormAlanlari");
+    const submitBtn = document.getElementById("submitBtn");
+
+    try {
+      const response = await fetch('/api/maas-analizi');
+      if (response.ok) {
+        const data = await response.json();
+        alanlarKonteyneri.innerHTML = ""; // Yükleniyor yazısını temizle
+
+        // Backend'den gelen her bir soru(key) için dropdown oluşturuyoruz
+        for (const [soruKey, secenekler] of Object.entries(data)) {
+          const div = document.createElement("div");
+          div.style.marginBottom = "15px";
+
+          const label = document.createElement("label");
+          label.innerText = soruKey;
+          label.style.display = "block";
+          label.style.marginBottom = "5px";
+          label.style.fontWeight = "bold";
+
+          const select = document.createElement("select");
+          select.name = soruKey; // POST ederken veriyi toplamak için name kullanacağız
+          select.style.width = "100%";
+          select.style.padding = "8px";
+
+          // Opsiyonel boş seçenek
+          const defaultOption = document.createElement("option");
+          defaultOption.value = "";
+          defaultOption.innerText = "Tümü / Farketmez";
+          select.appendChild(defaultOption);
+
+          // Veri setinden gelen seçenekler
+          secenekler.forEach(secenek => {
+            if(secenek.trim() !== "") {
+              const option = document.createElement("option");
+              option.value = secenek;
+              option.textContent = secenek;
+              select.appendChild(option);
+            }
+          });
+
+          div.appendChild(label);
+          div.appendChild(select);
+          alanlarKonteyneri.appendChild(div);
+        }
+
+        submitBtn.style.display = "block"; // Form çizilince butonu göster
+      }
+    } catch (error) {
+      alanlarKonteyneri.innerHTML = "<p style='color:red;'>Form verileri yüklenirken hata oluştu.</p>";
+    }
+  });
+
+  document.getElementById('maasFormu').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const btn = document.getElementById('submitBtn');
+    const sonucAlani = document.getElementById('analizSonucu');
+
+    btn.innerText = "Analiz Ediliyor...";
+    btn.disabled = true;
+
+    // Form içindeki tüm select elementlerini bulup değerlerini JSON objesine atıyoruz
+    const payload = {};
+    const selects = this.querySelectorAll("select");
+    selects.forEach(select => {
+      payload[select.name] = select.value;
+    });
+
+    try {
+      const response = await fetch('/api/maas-analizi', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await response.json();
+
+      if(response.ok) {
+        sonucAlani.style.display = 'block';
+        if(data.eslesenKisiSayisi > 0) {
+          sonucAlani.innerHTML = `
+           <h4 style="margin-top: 0;">Analiz Sonucu</h4>
+           <p>Seçtiğiniz kriterlere uygun <b>${data.eslesenKisiSayisi}</b> kişi bulundu.</p>
+           <p style="margin-bottom: 0;">Sektör Ortalaması: <b>${data.sektorOrtalamasi.toLocaleString('tr-TR')} TL</b></p>
+         `;
+        } else {
+          sonucAlani.innerHTML = `<p style="margin: 0;">Bu kriterlere uygun yeterli veri bulunamadı. Lütfen filtreleri genişletin.</p>`;
+        }
+      } else {
+        alert(data.hata);
+      }
+    } catch (error) {
+      alert("Bağlantı hatası oluştu. Lütfen daha sonra tekrar deneyin.");
+    } finally {
+      btn.innerText = "Analiz Et";
+      btn.disabled = false;
+    }
+  });
+</script>
