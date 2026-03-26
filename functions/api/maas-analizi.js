@@ -1,6 +1,5 @@
 const MAAS_ANAHTARI = "Aylık [NET] geliriniz nedir? (Brüt maaş alıyorsanız, yıllık net gelirinizi 12'ye bölüp aylık kazancınızı seçebilirsiniz. Bir önceki adımda seçtiğiniz para birimine göre seçim yapmalısınız.)";
 
-// Formda gösterilmesini istemediğimiz JSON anahtarlarını buraya ekliyoruz
 const HARIC_TUTULACAKLAR = [
   MAAS_ANAHTARI,
   "Timestamp",
@@ -31,9 +30,7 @@ export async function onRequestGet(context) {
 
     maasVerileri.forEach(item => {
       Object.keys(item).forEach(key => {
-        // İstemediğimiz alanları atlıyoruz
         if (HARIC_TUTULACAKLAR.includes(key)) return;
-
         if (!secenekler[key]) secenekler[key] = new Set();
         if (item[key]) secenekler[key].add(String(item[key]).trim());
       });
@@ -41,7 +38,6 @@ export async function onRequestGet(context) {
 
     const sonuc = {};
     for (const key in secenekler) {
-      // Türkçe dil desteği ve sayısal mantığa (numeric: true) göre doğru sıralama yapıyoruz
       sonuc[key] = Array.from(secenekler[key]).sort((a, b) =>
                                                       a.localeCompare(b, 'tr', { numeric: true })
       );
@@ -77,9 +73,10 @@ export async function onRequestPost(context) {
       return eslesiyor;
     });
 
-    let ortalamaMaas = 0;
+    let medyanMaas = 0;
     if (benzerProfiller.length > 0) {
-      const toplamMaas = benzerProfiller.reduce((acc, curr) => {
+      // 1. Tüm maaşları temizleyip bir diziye (array) topluyoruz
+      const maasListesi = benzerProfiller.map(curr => {
         const hamMaas = curr[MAAS_ANAHTARI] || "";
         let hesaplananMaas = 0;
 
@@ -93,15 +90,30 @@ export async function onRequestPost(context) {
             hesaplananMaas = Number(hamMaas.replace(/[^0-9]/g, ''));
           }
         }
-        return acc + (isNaN(hesaplananMaas) ? 0 : hesaplananMaas);
-      }, 0);
+        return isNaN(hesaplananMaas) ? 0 : hesaplananMaas;
+      }).filter(maas => maas > 0); // Sadece 0'dan büyük geçerli maaşları al
 
-      ortalamaMaas = Math.round(toplamMaas / benzerProfiller.length);
+      // 2. Maaşları küçükten büyüğe sıralıyoruz
+      maasListesi.sort((a, b) => a - b);
+
+      // 3. Medyan değerini buluyoruz
+      if (maasListesi.length > 0) {
+        const ortaIndex = Math.floor(maasListesi.length / 2);
+
+        if (maasListesi.length % 2 === 0) {
+          // Çift sayıdaysa tam ortadaki iki değerin ortalaması
+          medyanMaas = Math.round((maasListesi[ortaIndex - 1] + maasListesi[ortaIndex]) / 2);
+        } else {
+          // Tek sayıdaysa tam ortadaki değer
+          medyanMaas = Math.round(maasListesi[ortaIndex]);
+        }
+      }
     }
 
+    // JSON anahtarını da "sektorMedyani" olarak güncelledik
     return new Response(JSON.stringify({
                                          eslesenKisiSayisi: benzerProfiller.length,
-                                         sektorOrtalamasi: ortalamaMaas
+                                         sektorMedyani: medyanMaas
                                        }), { headers: { "Content-Type": "application/json" }, status: 200 });
 
   } catch (error) {

@@ -98,7 +98,7 @@
           sonucAlani.innerHTML = `
            <h4 style="margin-top: 0;">Analiz Sonucu</h4>
            <p>Seçtiğiniz kriterlere uygun <b>${data.eslesenKisiSayisi}</b> kişi bulundu.</p>
-           <p style="margin-bottom: 0;">Sektör Ortalaması: <b>${data.sektorOrtalamasi.toLocaleString('tr-TR')} TL</b></p>
+           <p style="margin-bottom: 0;">Sektör Ortalaması: <b>${data.sektorMedyani.toLocaleString('tr-TR')} TL</b></p>
          `;
         } else {
           sonucAlani.innerHTML = `<p style="margin: 0;">Bu kriterlere uygun yeterli veri bulunamadı. Lütfen filtreleri genişletin.</p>`;
