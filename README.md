@@ -1,3 +1,3 @@
-### https://okanuzun.pages.dev
+### https://okanuzun.dev
 
 This is my personal blog, includes posts about building software...

@@ -11,7 +11,7 @@ disqus: 'okanuzun'
 include: ["_pages"]
 permalink: /:title/
 # When testing locally leave blank or use http://localhost:4000
-url: https://okanuzun.pages.dev
+url: https://okanuzun.dev
 
 # Authors
 authors:
@@ -20,7 +20,7 @@ authors:
     display_name: Okan Uzun
     gravatar: 859db8b381781ab11083a90161427970
     email: okan.uzun@outlook.com
-    web: https://okanuzun.pages.dev
+    web: https://okanuzun.dev
     twitter: okanuznn
     github: OkanUzun
     linkedin: okan-uzun
